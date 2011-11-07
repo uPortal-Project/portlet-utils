@@ -8,7 +8,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jasig.portlet</groupId>
+    <groupId>org.jasig.portlet.utils</groupId>
     <artifactId>portlet-utils-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -70,11 +70,21 @@
     </properties>
 
     <modules>
-        <module>data-sync-utils</module>
+        <module>portlet-search-api</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.jvnet.jaxb2_commons</groupId>
+                <artifactId>jaxb2-basics</artifactId>
+                <version>0.6.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jvnet.jaxb2_commons</groupId>
+                <artifactId>jaxb2-basics-runtime</artifactId>
+                <version>0.6.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     
