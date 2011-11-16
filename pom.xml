@@ -71,6 +71,7 @@
 
     <modules>
         <module>portlet-search-api</module>
+        <module>portlet-form-resources</module>
     </modules>
 
     <dependencyManagement>
