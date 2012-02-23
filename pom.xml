@@ -151,6 +151,25 @@
                     <version>2.5</version>
                 </plugin>
                 <plugin>
+                    <groupId>com.mycila.maven-license-plugin</groupId>
+                    <artifactId>maven-license-plugin</artifactId>
+                    <configuration>
+                        <aggregate>true</aggregate>
+                        <excludes>
+                            <exclude>**/.gitignore</exclude>
+                            <exclude>pom.xml.*</exclude>
+                            <exclude>release.properties</exclude>
+                            <exclude>LICENSE</exclude>
+                            <exclude>**/NOTICE</exclude>
+                            <exclude>NOTICE.template</exclude>
+                            <exclude>bin/**</exclude>
+                        </excludes>
+                        <mapping>
+                            <xjb>XML_STYLE</xjb>
+                        </mapping>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.jasig.maven</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <configuration>

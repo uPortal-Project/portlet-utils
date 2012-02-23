@@ -164,26 +164,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                    <excludes>
-                        <exclude>target/**</exclude>
-                        <exclude>pom.xml.*</exclude>
-                        <exclude>release.properties</exclude>
-                        <exclude>LICENSE</exclude>
-                        <exclude>bin/**</exclude>
-                    </excludes>
-                    <mapping>
-                        <channel>XML_STYLE</channel>
-                        <portlet>XML_STYLE</portlet>
-                        <tag>DYNASCRIPT_STYLE</tag>
-                        <xjb>XML_STYLE</xjb>
-                    </mapping>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>surefire-report-maven-plugin</artifactId>
                 <version>2.0-beta-1</version>
