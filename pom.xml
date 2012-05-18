@@ -70,6 +70,7 @@
     </properties>
 
     <modules>
+        <module>portal-rest-api</module>
         <module>portlet-search-api</module>
         <module>portlet-form-resources</module>
     </modules>
