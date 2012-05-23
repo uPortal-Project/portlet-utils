@@ -7,11 +7,13 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -209,6 +211,200 @@ public class SimpleCrossContextRestApiInvoker implements CrossContextRestApiInvo
 			return writer != null
 					? writer.toString()
 					: outputStream.toString();
+		}
+		
+		/*
+		 * The methods above this line are implemented so the HttpServletResponseWrapperImpl
+		 * can serve it's purpose.
+		 * 
+		 * The methods below this line are implemented to prevent the underlying 
+		 * ServletResponse from being altered in unexpected/unwanted ways as a 
+		 * side effect of invoking the cross-context API.
+		 */
+
+		@Override
+		public void flushBuffer() throws IOException {
+			// JavaDoc:  "Forces any content in the buffer to be written to the 
+			// client. A call to this method automatically commits the response, 
+			// meaning the status code and headers will be written."
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void reset() {
+			// JavaDoc:  "Clears any data that exists in the buffer as well as 
+			// the status code and headers. If the response has been committed, 
+			// this method throws an IllegalStateException."
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void resetBuffer() {
+			// JavaDoc:  "Clears the content of the underlying buffer in the 
+			// response without clearing headers or status code. If the response 
+			// has been committed, this method throws an IllegalStateException."
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setBufferSize(int arg0) {
+			// JavaDoc:  "Sets the preferred buffer size for the body of the 
+			// response. The servlet container will use a buffer at least as 
+			// large as the size requested.  [...]"
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setCharacterEncoding(String arg0) {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void setContentLength(int arg0) {
+			// JavaDoc:  "Sets the length of the content body in the response 
+			// In HTTP servlets, this method sets the HTTP Content-Length 
+			// header."
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setContentType(String arg0) {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void setLocale(Locale arg0) {
+			// JavaDoc:  "Sets the locale of the response, if the response has 
+			// not been committed yet. It also sets the response's character 
+			// encoding appropriately for the locale, if the character encoding 
+			// has not been explicitly set [...]"
+			//
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void addCookie(Cookie arg0) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void addDateHeader(String arg0, long arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void addHeader(String arg0, String arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void addIntHeader(String arg0, int arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void sendError(int arg0) throws IOException {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void sendError(int arg0, String arg1) throws IOException {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void sendRedirect(String arg0) throws IOException {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void setDateHeader(String arg0, long arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setHeader(String arg0, String arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setIntHeader(String arg0, int arg1) {
+			// It seems we should potentially prevent this behavior on the 
+			// underlying response since it's effect outside the API invoker 
+			// could be unwanted... but how best to do that?  Leaving it as a 
+			// no-op for now.
+		}
+
+		@Override
+		public void setStatus(int arg0) {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
+		}
+
+		@Override
+		public void setStatus(int arg0, String arg1) {
+			/*
+			 * There's some chance something should be done with this method, 
+			 * but I'm not sure what atm.
+			 */
 		}
 		
 	}
