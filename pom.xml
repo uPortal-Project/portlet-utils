@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jasig.portlet.utils</groupId>
     <artifactId>portlet-utils-parent</artifactId>
-    <version>1.0.0-M2-SNAPSHOT</version>
+    <version>1.0.0-M2</version>
     <packaging>pom</packaging>
 
     <name>Portlet Utils Parent</name>
@@ -21,7 +21,8 @@
         <connection>scm:git:git://github.com/Jasig/PortletUtils.git</connection>
         <developerConnection>scm:git:git@github.com:Jasig/PortletUtils.git</developerConnection>
         <url>https://github.com/Jasig/PortletUtils</url>
-    </scm>
+      <tag>portlet-utils-parent-1.0.0-M2</tag>
+  </scm>
 
     <issueManagement>
         <url>${jasig-issues-base}/UP</url>
