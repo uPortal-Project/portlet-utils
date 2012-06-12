@@ -71,6 +71,7 @@
 
     <modules>
         <module>spring-webmvc-portlet-contrib</module>
+        <module>spring-security-portlet-contrib</module>
     </modules>
 
     <dependencyManagement>
