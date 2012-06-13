@@ -107,4 +107,8 @@ public class PortletSecurityContextPersistenceFilter
             }
         }
     }
+
+    public void setForceEagerSessionCreation(boolean forceEagerSessionCreation) {
+        this.forceEagerSessionCreation = forceEagerSessionCreation;
+    }
 }

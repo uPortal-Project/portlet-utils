@@ -40,5 +40,24 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
         </dependency>
+        
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>3.1.1.RELEASE</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.10</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>1.9.0</version>
+          <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

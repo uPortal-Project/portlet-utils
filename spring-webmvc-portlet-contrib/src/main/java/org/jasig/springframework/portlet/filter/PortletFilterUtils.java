@@ -45,7 +45,8 @@ public final class PortletFilterUtils {
         else if (PortletRequest.RESOURCE_PHASE.equals(phase)) {
             chain.doFilter((ResourceRequest) request, (ResourceResponse) response);
         }
-        
-        throw new IllegalArgumentException("Unknown Portlet Lifecycle Phase: " + phase);
+        else {
+            throw new IllegalArgumentException("Unknown Portlet Lifecycle Phase: " + phase);
+        }
     }
 }
