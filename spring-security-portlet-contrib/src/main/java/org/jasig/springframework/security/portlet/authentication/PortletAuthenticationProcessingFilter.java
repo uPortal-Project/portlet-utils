@@ -272,8 +272,13 @@ public class PortletAuthenticationProcessingFilter
     }
 
     /**
-    * Override to extract the principal information from the current request
-    */
+     * Extracts the principal information by checking the following in order:
+     * {@link PortletRequest#getRemoteUser()}
+     * {@link PortletRequest#getUserPrincipal()}
+     * {@link PortletRequest#USER_INFO}
+     * 
+     * Returns null if no principal is found  
+     */
     protected Object getPreAuthenticatedPrincipal(PortletRequest request) {
 
         // first try getRemoteUser()
@@ -315,9 +320,9 @@ public class PortletAuthenticationProcessingFilter
     }
 
     /**
-    * Override to extract the credentials (if applicable) from the current request. Should not return null for a valid
-    * principal, though some implementations may return a dummy value.
-    */
+     * If {@link #setUseAuthTypeAsCredentials(boolean)} is true then {@link PortletRequest#getAuthType()} is used
+     * otherwise a dummy value is returned.
+     */
     protected Object getPreAuthenticatedCredentials(PortletRequest request) {
         if (useAuthTypeAsCredentials) {
             return request.getAuthType();
@@ -326,6 +331,11 @@ public class PortletAuthenticationProcessingFilter
         return "N/A";
     }
 
+    /**
+     * The user attributes from the {@link PortletRequest#USER_INFO} map to try and use as the userName for
+     * portals that don't support the {@link PortletRequest#getRemoteUser()} or {@link PortletRequest#getUserPrincipal()}
+     * methods.
+     */
     public void setUserNameAttributes(List<String> userNameAttributes) {
         this.userNameAttributes = userNameAttributes;
     }
