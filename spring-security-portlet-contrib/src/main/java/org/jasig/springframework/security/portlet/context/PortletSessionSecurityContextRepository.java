@@ -66,7 +66,7 @@ public class PortletSessionSecurityContextRepository implements PortletSecurityC
     private final int sessionScope;
     
     public PortletSessionSecurityContextRepository() {
-        this.sessionScope = PortletSession.PORTLET_SCOPE;
+        this.sessionScope = PortletSession.APPLICATION_SCOPE;
     }
 
     /**

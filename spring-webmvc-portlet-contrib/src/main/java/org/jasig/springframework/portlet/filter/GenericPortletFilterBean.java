@@ -1,14 +1,29 @@
 package org.jasig.springframework.portlet.filter;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+import javax.portlet.filter.ActionFilter;
+import javax.portlet.filter.EventFilter;
+import javax.portlet.filter.FilterChain;
 import javax.portlet.filter.FilterConfig;
-import javax.portlet.filter.PortletFilter;
+import javax.portlet.filter.RenderFilter;
+import javax.portlet.filter.ResourceFilter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,7 +53,8 @@ import org.springframework.web.portlet.context.StandardPortletEnvironment;
  * @version $Revision: 23744 $
  */
 public abstract class GenericPortletFilterBean implements
-    PortletFilter, BeanNameAware, EnvironmentAware, PortletContextAware, InitializingBean, DisposableBean {
+        ActionFilter, EventFilter, RenderFilter, ResourceFilter, BeanNameAware, 
+        EnvironmentAware, PortletContextAware, InitializingBean, DisposableBean {
 
 
     /** Logger available to subclasses */
@@ -221,6 +237,50 @@ public abstract class GenericPortletFilterBean implements
      * @see #getPortletContext()
      */
     protected void initFilterBean() throws PortletException {
+    }
+    
+    /**
+     * Calls {@link #doCommonFilter(PortletRequest, PortletResponse, FilterChain)}
+     */
+    @Override
+    public void doFilter(ActionRequest request, ActionResponse response, FilterChain chain) throws IOException,
+            PortletException {
+        doCommonFilter(request, response, chain);
+    }
+    
+    /**
+     * Calls {@link #doCommonFilter(PortletRequest, PortletResponse, FilterChain)}
+     */
+    @Override
+    public void doFilter(EventRequest request, EventResponse response, FilterChain chain) throws IOException,
+            PortletException {
+        doCommonFilter(request, response, chain);        
+    }
+    
+    /**
+     * Calls {@link #doCommonFilter(PortletRequest, PortletResponse, FilterChain)}
+     */
+    @Override
+    public void doFilter(ResourceRequest request, ResourceResponse response, FilterChain chain) throws IOException,
+            PortletException {
+        doCommonFilter(request, response, chain);        
+    }
+
+    /**
+     * Calls {@link #doCommonFilter(PortletRequest, PortletResponse, FilterChain)}
+     */
+    @Override
+    public void doFilter(RenderRequest request, RenderResponse response, FilterChain chain) throws IOException,
+            PortletException {
+        doCommonFilter(request, response, chain);        
+    }
+
+    /**
+     * Can be implemented by subclasses to provide filter handling common to all request types. Default
+     * implementation just uses {@link PortletFilterUtils#doFilter(PortletRequest, PortletResponse, FilterChain)}
+     */
+    protected void doCommonFilter(PortletRequest request, PortletResponse response, FilterChain chain) throws IOException, PortletException {
+        PortletFilterUtils.doFilter(request, response, chain);
     }
 
     /**

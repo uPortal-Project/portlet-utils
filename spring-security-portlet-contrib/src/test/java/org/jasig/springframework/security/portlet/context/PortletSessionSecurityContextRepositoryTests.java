@@ -61,7 +61,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         repo.setSpringSecurityContextKey("imTheContext");
         MockPortletRequest request = new MockPortletRequest();
         SecurityContextHolder.getContext().setAuthentication(testToken);
-        request.getPortletSession().setAttribute("imTheContext", SecurityContextHolder.getContext());
+        request.getPortletSession().setAttribute("imTheContext", SecurityContextHolder.getContext(), PortletSession.APPLICATION_SCOPE);
         MockPortletResponse response = new MockPortletResponse();
         PortletRequestResponseHolder holder = new PortletRequestResponseHolder(request, response);
         SecurityContext context = repo.loadContext(holder);
@@ -69,7 +69,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         assertEquals(testToken, context.getAuthentication());
         // Won't actually be saved as it hasn't changed, but go through the use case anyway
         repo.saveContext(context, holder);
-        assertEquals(context, request.getPortletSession().getAttribute("imTheContext"));
+        assertEquals(context, request.getPortletSession().getAttribute("imTheContext", PortletSession.APPLICATION_SCOPE));
     }
 
     // SEC-1528
@@ -81,7 +81,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         SecurityContext ctx = SecurityContextHolder.getContext();
         ctx.setAuthentication(testToken);
         PortletSession session = mock(PortletSession.class);
-        when(session.getAttribute(SPRING_SECURITY_CONTEXT_KEY, PortletSession.PORTLET_SCOPE)).thenReturn(ctx);
+        when(session.getAttribute(SPRING_SECURITY_CONTEXT_KEY, PortletSession.APPLICATION_SCOPE)).thenReturn(ctx);
         request.setSession(session);
         PortletRequestResponseHolder holder = new PortletRequestResponseHolder(request, new MockPortletResponse());
         assertSame(ctx, repo.loadContext(holder));
@@ -91,7 +91,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         repo.saveContext(ctx, holder);
 
         // Must be called even though the value in the local VM is already the same
-        verify(session).setAttribute(SPRING_SECURITY_CONTEXT_KEY, ctx, PortletSession.PORTLET_SCOPE);
+        verify(session).setAttribute(SPRING_SECURITY_CONTEXT_KEY, ctx, PortletSession.APPLICATION_SCOPE);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         PortletSessionSecurityContextRepository repo = new PortletSessionSecurityContextRepository();
         MockPortletRequest request = new MockPortletRequest();
         SecurityContextHolder.getContext().setAuthentication(testToken);
-        request.getPortletSession().setAttribute(SPRING_SECURITY_CONTEXT_KEY, "NotASecurityContextInstance");
+        request.getPortletSession().setAttribute(SPRING_SECURITY_CONTEXT_KEY, "NotASecurityContextInstance", PortletSession.APPLICATION_SCOPE);
         MockPortletResponse response = new MockPortletResponse();
         PortletRequestResponseHolder holder = new PortletRequestResponseHolder(request, response);
         SecurityContext context = repo.loadContext(holder);
@@ -119,7 +119,7 @@ public class PortletSessionSecurityContextRepositoryTests {
         context.setAuthentication(testToken);
         repo.saveContext(context, holder);
         assertNotNull(request.getPortletSession(false));
-        assertEquals(context, request.getPortletSession().getAttribute(SPRING_SECURITY_CONTEXT_KEY));
+        assertEquals(context, request.getPortletSession().getAttribute(SPRING_SECURITY_CONTEXT_KEY, PortletSession.APPLICATION_SCOPE));
     }
 
     @Test
@@ -157,12 +157,12 @@ public class PortletSessionSecurityContextRepositoryTests {
         MockPortletRequest request = new MockPortletRequest();
         SecurityContext ctxInSession = SecurityContextHolder.createEmptyContext();
         ctxInSession.setAuthentication(testToken);
-        request.getPortletSession().setAttribute(SPRING_SECURITY_CONTEXT_KEY, ctxInSession);
+        request.getPortletSession().setAttribute(SPRING_SECURITY_CONTEXT_KEY, ctxInSession, PortletSession.APPLICATION_SCOPE);
         PortletRequestResponseHolder holder = new PortletRequestResponseHolder(request, new MockPortletResponse());
         repo.loadContext(holder);
         SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("x","x", testToken.getAuthorities()));
         repo.saveContext(SecurityContextHolder.getContext(), holder);
-        assertNull(request.getPortletSession().getAttribute(SPRING_SECURITY_CONTEXT_KEY));
+        assertNull(request.getPortletSession().getAttribute(SPRING_SECURITY_CONTEXT_KEY, PortletSession.APPLICATION_SCOPE));
     }
 
     @Test
@@ -172,12 +172,12 @@ public class PortletSessionSecurityContextRepositoryTests {
         MockPortletRequest request = new MockPortletRequest();
         SecurityContext ctxInSession = SecurityContextHolder.createEmptyContext();
         ctxInSession.setAuthentication(testToken);
-        request.getPortletSession().setAttribute("imTheContext", ctxInSession);
+        request.getPortletSession().setAttribute("imTheContext", ctxInSession, PortletSession.APPLICATION_SCOPE);
         PortletRequestResponseHolder holder = new PortletRequestResponseHolder(request, new MockPortletResponse());
         repo.loadContext(holder);
         // Save an empty context
         repo.saveContext(SecurityContextHolder.getContext(), holder);
-        assertNull(request.getPortletSession().getAttribute("imTheContext"));
+        assertNull(request.getPortletSession().getAttribute("imTheContext", PortletSession.APPLICATION_SCOPE));
     }
 
     //Not working after port to portlet apis, not quite sure why
