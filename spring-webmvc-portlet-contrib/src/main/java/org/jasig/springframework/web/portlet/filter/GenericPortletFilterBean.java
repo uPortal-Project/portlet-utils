@@ -1,4 +1,4 @@
-package org.jasig.springframework.portlet.filter;
+package org.jasig.springframework.web.portlet.filter;
 
 import java.io.IOException;
 import java.util.Enumeration;

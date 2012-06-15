@@ -8,8 +8,8 @@ import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.filter.FilterChain;
 
-import org.jasig.springframework.portlet.filter.GenericPortletFilterBean;
-import org.jasig.springframework.portlet.filter.PortletFilterUtils;
+import org.jasig.springframework.web.portlet.filter.GenericPortletFilterBean;
+import org.jasig.springframework.web.portlet.filter.PortletFilterUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 

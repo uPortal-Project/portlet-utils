@@ -11,8 +11,8 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 
-import org.jasig.springframework.portlet.filter.GenericPortletFilterBean;
-import org.jasig.springframework.portlet.filter.PortletFilterUtils;
+import org.jasig.springframework.web.portlet.filter.GenericPortletFilterBean;
+import org.jasig.springframework.web.portlet.filter.PortletFilterUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
