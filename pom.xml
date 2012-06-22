@@ -70,8 +70,6 @@
     </properties>
 
     <modules>
-        <module>spring-webmvc-portlet-contrib</module>
-        <module>spring-security-portlet-contrib</module>
         <module>portal-rest-api</module>
         <module>portlet-form-resources</module>
     </modules>
