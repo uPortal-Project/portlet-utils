@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.portlet.PortletContext;
+import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +41,7 @@ import org.springframework.web.portlet.context.XmlPortletApplicationContext;
  * at the <code>web.xml</code> level to specify the context
  * class type, falling back to the default of
  * {@link XmlPortletApplicationContext}
- * if not found. With the default ContextLoader implementation, any context class
+ * if not found. With the default PortletContextLoader implementation, any context class
  * specified needs to implement the ConfigurablePortletApplicationContext interface.
  *
  * <p>Processes a {@link #CONFIG_LOCATION_PARAM "portletContextConfigLocation"}
@@ -71,7 +72,7 @@ import org.springframework.web.portlet.context.XmlPortletApplicationContext;
  * @see ConfigurablePortletApplicationContext
  * @see XmlPortletApplicationContext
  */
-public class ContextLoader {
+public class PortletContextLoader {
     
     /**
      * Config param for the root WebApplicationContext implementation class to use: {@value}
@@ -102,10 +103,10 @@ public class ContextLoader {
     public static final String CONFIG_LOCATION_PARAM = "portletContextConfigLocation";
 
     /**
-     * Name of the class path resource (relative to the ContextLoader class)
-     * that defines ContextLoader's default strategy names.
+     * Name of the class path resource (relative to the PortletContextLoader class)
+     * that defines PortletContextLoader's default strategy names.
      */
-    private static final String DEFAULT_STRATEGIES_PATH = "ContextLoader.properties";
+    private static final String DEFAULT_STRATEGIES_PATH = "PortletContextLoader.properties";
 
 
     private static final Properties defaultStrategies;
@@ -115,11 +116,11 @@ public class ContextLoader {
         // This is currently strictly internal and not meant to be customized
         // by application developers.
         try {
-            ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, ContextLoader.class);
+            ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, PortletContextLoader.class);
             defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);
         }
         catch (IOException ex) {
-            throw new IllegalStateException("Could not load 'ContextLoader.properties': " + ex.getMessage());
+            throw new IllegalStateException("Could not load 'PortletContextLoader.properties': " + ex.getMessage());
         }
     }
 
@@ -131,7 +132,7 @@ public class ContextLoader {
             new ConcurrentHashMap<ClassLoader, WebApplicationContext>(1);
 
     /**
-     * The 'current' WebApplicationContext, if the ContextLoader class is
+     * The 'current' WebApplicationContext, if the PortletContextLoader class is
      * deployed in the web app ClassLoader itself.
      */
     private static volatile WebApplicationContext currentContext;
@@ -149,7 +150,7 @@ public class ContextLoader {
 
 
     /**
-     * Create a new {@code ContextLoader} that will create a portlet application context
+     * Create a new {@code PortletContextLoader} that will create a portlet application context
      * based on the "portletContextClass" and "portletContextConfigLocation" portlet context-params.
      * See class-level documentation for details on default values for each.
      * <p>This constructor is typically used when declaring the {@code
@@ -159,11 +160,11 @@ public class ContextLoader {
      * the attribute name {@link PortletApplicationContextUtils2.ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE}
      * and subclasses are free to call the {@link #closeWebApplicationContext} method on
      * container shutdown to close the application context.
-     * @see #ContextLoader(WebApplicationContext)
+     * @see #PortletContextLoader(WebApplicationContext)
      * @see #initWebApplicationContext(PortletContext)
      * @see #closeWebApplicationContext(PortletContext)
      */
-    public ContextLoader() {
+    public PortletContextLoader() {
     }
 
     /**
@@ -173,7 +174,7 @@ public class ContextLoader {
      * "{@link #CONFIG_LOCATION_PARAM contextConfigLocation}" context-params.
      * @param portletContext current portlet context
      * @return the new WebApplicationContext
-     * @see #ContextLoader(WebApplicationContext)
+     * @see #PortletContextLoader(WebApplicationContext)
      * @see #CONTEXT_CLASS_PARAM
      * @see #CONFIG_LOCATION_PARAM
      */
@@ -181,10 +182,10 @@ public class ContextLoader {
         if (portletContext.getAttribute(PortletApplicationContextUtils2.ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
             throw new IllegalStateException(
                     "Cannot initialize context because there is already a root portlet application context present - " +
-                    "check whether you have multiple ContextLoader* definitions in your portlet.xml!");
+                    "check whether you have multiple PortletContextLoader* definitions in your portlet.xml!");
         }
 
-        Log logger = LogFactory.getLog(ContextLoader.class);
+        Log logger = LogFactory.getLog(PortletContextLoader.class);
         portletContext.log("Initializing Spring root portlet WebApplicationContext");
         if (logger.isInfoEnabled()) {
             logger.info("Root portlet WebApplicationContext: initialization started");
@@ -203,7 +204,7 @@ public class ContextLoader {
             portletContext.setAttribute(PortletApplicationContextUtils2.ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
             ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-            if (ccl == ContextLoader.class.getClassLoader()) {
+            if (ccl == PortletContextLoader.class.getClassLoader()) {
                 currentContext = this.context;
             }
             else if (ccl != null) {
@@ -280,6 +281,10 @@ public class ContextLoader {
         if (initParameter != null) {
             wac.setConfigLocation(initParameter);
         }
+        else {
+            //TODO set to portletApplicationContext.xml
+            wac.setConfigLocation("/WEB-INF/portletApplicationContext.xml");
+        }
         customizeContext(pc, wac);
         wac.refresh();
     }
@@ -306,7 +311,7 @@ public class ContextLoader {
         else {
             contextClassName = defaultStrategies.getProperty(WebApplicationContext.class.getName());
             try {
-                return ClassUtils.forName(contextClassName, ContextLoader.class.getClassLoader());
+                return ClassUtils.forName(contextClassName, PortletContextLoader.class.getClassLoader());
             }
             catch (ClassNotFoundException ex) {
                 throw new ApplicationContextException(
@@ -346,7 +351,7 @@ public class ContextLoader {
 
     /**
      * Customize the {@link ConfigurablePortletApplicationContext} created by this
-     * ContextLoader after config locations have been supplied to the context
+     * PortletContextLoader after config locations have been supplied to the context
      * but before the context is <em>refreshed</em>.
      * <p>The default implementation {@linkplain #determineContextInitializerClasses(PortletContext)
      * determines} what (if any) context initializer classes have been specified through
@@ -414,10 +419,10 @@ public class ContextLoader {
      * parent context, release one reference to that shared parent context.
      * <p>If overriding {@link #loadParentContext(PortletContext)}, you may have
      * to override this method as well.
-     * @param portletContext the PortletContext that the WebApplicationContext runs in
+     * @param servletContext the PortletContext that the WebApplicationContext runs in
      */
-    public void closeWebApplicationContext(PortletContext portletContext) {
-        portletContext.log("Closing Spring root portlet WebApplicationContext");
+    public void closeWebApplicationContext(ServletContext servletContext) {
+        servletContext.log("Closing Spring root portlet WebApplicationContext");
         try {
             if (this.context instanceof ConfigurablePortletApplicationContext) {
                 ((ConfigurablePortletApplicationContext) this.context).close();
@@ -425,13 +430,13 @@ public class ContextLoader {
         }
         finally {
             ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-            if (ccl == ContextLoader.class.getClassLoader()) {
+            if (ccl == PortletContextLoader.class.getClassLoader()) {
                 currentContext = null;
             }
             else if (ccl != null) {
                 currentContextPerThread.remove(ccl);
             }
-            portletContext.removeAttribute(PortletApplicationContextUtils2.ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE);
+            servletContext.removeAttribute(PortletApplicationContextUtils2.ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE);
             if (this.parentContextRef != null) {
                 this.parentContextRef.release();
             }

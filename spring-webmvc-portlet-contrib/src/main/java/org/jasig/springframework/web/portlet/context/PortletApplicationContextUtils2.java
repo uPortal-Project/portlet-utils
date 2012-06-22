@@ -25,10 +25,14 @@ import org.springframework.web.portlet.context.ConfigurablePortletApplicationCon
  * @see DispatcherPortlet
  */
 public class PortletApplicationContextUtils2 {
-    
     /**
-     * Context attribute to bind root WebApplicationContext to on successful startup.
-     * <p>Note: If the startup of the root context fails, this attribute can contain
+     * Context attribute to bind root {@link PortletContextLoader}
+     */
+    public static final String ROOT_PORTLET_APPLICATION_CONTEXT_LOADER_ATTRIBUTE = ConfigurablePortletApplicationContext.class.getName() + ".ROOT_LOADER";
+
+    /**
+     * Context attribute to bind root portlet WebApplicationContext to on successful startup.
+     * <p>Note: If the startup of the root portlet context fails, this attribute can contain
      * an exception or error as value. Use PortletApplicationContextUtils2 for convenient
      * lookup of the root portlet WebApplicationContext.
      * @see PortletApplicationContextUtils2#getPortletApplicationContext(PortletContext)
@@ -66,7 +70,7 @@ public class PortletApplicationContextUtils2 {
      * @see PortletApplicationContextUtils2#ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE
      */
     public static WebApplicationContext getPortletApplicationContext(PortletContext sc) {
-        return getPortletApplicationContext(sc, WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        return getPortletApplicationContext(sc, ROOT_PORTLET_APPLICATION_CONTEXT_ATTRIBUTE);
     }
 
     /**
