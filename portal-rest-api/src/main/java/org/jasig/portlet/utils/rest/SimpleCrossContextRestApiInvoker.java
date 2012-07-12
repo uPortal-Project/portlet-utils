@@ -146,7 +146,7 @@ public class SimpleCrossContextRestApiInvoker implements CrossContextRestApiInvo
 		// Inject queryString params
 		for (Map.Entry<String, String[]> y : params.entrySet()) {
 			final String paramName = y.getKey();
-			final String token = "\\{" + paramName + "\\}";
+			final String token = "{" + paramName + "}";
 			if (queryString.contains(token)) {
 				final StringBuilder value = new StringBuilder();
 				for (String s : y.getValue()) {
