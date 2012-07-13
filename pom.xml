@@ -18,9 +18,9 @@
     <url>${jasig-site-base}/portlet-utils/${project.version}</url>
     
     <scm>
-        <connection>scm:git:git://github.com/Jasig/PortletUtils.git</connection>
-        <developerConnection>scm:git:git@github.com:Jasig/PortletUtils.git</developerConnection>
-        <url>https://github.com/Jasig/PortletUtils</url>
+        <connection>scm:git:git://github.com/Jasig/portlet-utils.git</connection>
+        <developerConnection>scm:git:git@github.com:Jasig/portlet-utils.git</developerConnection>
+        <url>https://github.com/Jasig/portlet-utils</url>
     </scm>
 
     <issueManagement>
