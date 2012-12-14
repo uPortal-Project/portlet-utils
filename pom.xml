@@ -73,6 +73,7 @@
     <modules>
         <module>portal-rest-api</module>
         <module>portlet-form-resources</module>
+        <module>portlet-jdbc-util</module>
     </modules>
 
     <dependencyManagement>
