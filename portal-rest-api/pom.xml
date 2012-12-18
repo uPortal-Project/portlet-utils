@@ -1,62 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-    <parent>
-        <groupId>org.jasig.portlet.utils</groupId>
-        <artifactId>portlet-utils-parent</artifactId>
-        <version>1.0.0-M4-SNAPSHOT</version>
-    </parent>
-
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>portal-rest-api</artifactId>
-    <packaging>jar</packaging>
-    
-    <name>Portal REST API</name>
-    <description>Utility to call the portal's (uPortal's) REST APIs from within a webapp in the same container.</description>
-
-    <properties>
-        <slf4j.version>1.6.2</slf4j.version>
-        <log4j.version>1.2.16</log4j.version>
-    </properties>
-  
-    <dependencies>
-        <dependency>
-          <groupId>javax.portlet</groupId>
-          <artifactId>portlet-api</artifactId>
-          <version>2.0</version>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-          <version>2.5</version>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-          <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-          <version>${log4j.version}</version>
-        </dependency>
-    
-    
-        <!-- ===== Test Dependencies ====================================== -->
-        <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.8.2</version>
-        </dependency>
-    </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>portlet-utils-parent</artifactId>
+    <groupId>org.jasig.portlet.utils</groupId>
+    <version>1.0.0-M4-SNAPSHOT</version>
+  </parent>
+  <artifactId>portal-rest-api</artifactId>
+  <packaging>jar</packaging>
+  <name>Portal REST API</name>
+  <description>Utility to call the portal's (uPortal's) REST APIs from within a webapp in the same container.</description>
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
 </project>
