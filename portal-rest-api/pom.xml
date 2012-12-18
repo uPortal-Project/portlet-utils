@@ -4,7 +4,7 @@
   <parent>
     <artifactId>portlet-utils-parent</artifactId>
     <groupId>org.jasig.portlet.utils</groupId>
-    <version>1.0.0-M4-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>portal-rest-api</artifactId>
   <packaging>jar</packaging>
