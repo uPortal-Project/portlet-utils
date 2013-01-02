@@ -32,7 +32,6 @@ import org.apache.tomcat.jdbc.pool.PoolProperties.InterceptorDefinition;
 import org.apache.tomcat.jdbc.pool.Validator;
 import org.jasig.portlet.utils.jdbc.DelayedValidationQueryResolver.ValidationQueryRegistrationHandler;
 import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
 /**
@@ -51,21 +50,21 @@ public class TomcatDataSourceFactory extends AbstractFactoryBean<DataSource>
     private DelayedValidationQueryResolver delayedValidationQueryResolver;
 
     private ObjectName objectName;
+    private DataSource dataSource;
 
     @Override
     public void setBeanName(String name) {
         this.poolConfiguration.setName(name);
     }
 
-    @Autowired(required = false)
     public void setmBeanServer(MBeanServer mBeanServer) {
         this.mBeanServer = mBeanServer;
+        this.registerWithMBeanServer();
     }
 
-    @Autowired(required = false)
-    public void setDelayedValidationQueryResolver(
-            DelayedValidationQueryResolver delayedValidationQueryResolver) {
+    public void setDelayedValidationQueryResolver(DelayedValidationQueryResolver delayedValidationQueryResolver) {
         this.delayedValidationQueryResolver = delayedValidationQueryResolver;
+        this.registerValidationQueryResolver();
     }
 
     public void setBaseObjectName(String baseObjectName) {
@@ -79,27 +78,20 @@ public class TomcatDataSourceFactory extends AbstractFactoryBean<DataSource>
 
     @Override
     protected DataSource createInstance() throws Exception {
-        final DataSource dataSource = new DataSource(this.poolConfiguration);
+        this.dataSource = new DataSource(this.poolConfiguration);
 
-        if (this.mBeanServer != null) {
-            try {
-                final ConnectionPool pool = dataSource.createPool();
-                final org.apache.tomcat.jdbc.pool.jmx.ConnectionPool jmxPool = pool
-                        .getJmxPool();
-    
-                
-                this.objectName = ObjectName.getInstance(this.baseObjectName + this.poolConfiguration.getName());
-                logger.info("Registering DataSource " + this.poolConfiguration.getName() + " in MBeanServer under name: " + this.objectName);
-                
-                final ObjectInstance instance = this.mBeanServer.registerMBean(
-                        jmxPool, this.objectName);
-                this.objectName = instance.getObjectName();
-            }
-            catch (Exception e) {
-                logger.warn("Failed to register connection pool with MBeanServer. JMX information will not be available for: " + this.poolConfiguration.getName(), e);
-            }
+        registerWithMBeanServer();
+
+        registerValidationQueryResolver();
+
+        return this.dataSource;
+    }
+
+    protected void registerValidationQueryResolver() {
+        if (this.dataSource == null) {
+            //Nothing to do yet, no data source
+            return;
         }
-        
 
         if (dataSource.getValidationQuery() == null && this.delayedValidationQueryResolver != null) {
             logger.info("Attempting to resolve validation query for: " + this.poolConfiguration.getName());
@@ -116,21 +108,64 @@ public class TomcatDataSourceFactory extends AbstractFactoryBean<DataSource>
                 logger.warn("Failed to resolve validation query for: " + this.poolConfiguration.getName(), e);
             }
         }
+    }
 
-        return dataSource;
+    protected void registerWithMBeanServer() {
+        if (this.dataSource == null) {
+            //Nothing to do yet, no data source
+            return;
+        }
+        
+        if (this.mBeanServer == null) {
+            //Nothing to do yet, no mbean server
+            return;
+        }
+        
+        //Make sure there is nothing already in the mbean server
+        unregisterWithMBeanServer();
+        
+        try {
+            final ConnectionPool pool = dataSource.createPool();
+            final org.apache.tomcat.jdbc.pool.jmx.ConnectionPool jmxPool = pool.getJmxPool();
+            
+            this.objectName = ObjectName.getInstance(this.baseObjectName + this.poolConfiguration.getName());
+            logger.info("Registering DataSource " + this.poolConfiguration.getName() + " in MBeanServer under name: " + this.objectName);
+            
+            final ObjectInstance instance = this.mBeanServer.registerMBean(
+                    jmxPool, this.objectName);
+            this.objectName = instance.getObjectName();
+        }
+        catch (Exception e) {
+            logger.warn("Failed to register connection pool with MBeanServer. JMX information will not be available for: " + this.poolConfiguration.getName(), e);
+        }
     }
 
     @Override
     protected void destroyInstance(DataSource instance) throws Exception {
-        if (this.objectName != null) {
-            try {
-                this.mBeanServer.unregisterMBean(this.objectName);
-            }
-            catch (Exception e) {
-                logger.warn("Failed to unregister connection pool with MBeanServer for: " + this.poolConfiguration.getName(), e);
-            }
-        }
+        //Clear local reference
+        this.dataSource = null;
+        
+        //Clear the mbean server reference
+        unregisterWithMBeanServer();
+        
+        //Shut down the DataSource
         instance.close();
+    }
+
+    protected void unregisterWithMBeanServer() {
+        final ObjectName name = this.objectName;
+        this.objectName = null;
+        if (name == null) {
+            //No object currently registered, nothing to do
+            return;
+        }
+        
+        try {
+            this.mBeanServer.unregisterMBean(name);
+        }
+        catch (Exception e) {
+            logger.warn("Failed to unregister connection pool with MBeanServer for: " + this.poolConfiguration.getName(), e);
+        }
     }
 
     @Override
