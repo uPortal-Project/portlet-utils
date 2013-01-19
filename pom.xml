@@ -30,7 +30,7 @@
     <slf4j.version>1.7.2</slf4j.version>
     <spring.version>3.1.3.RELEASE</spring.version>
     <tomcat-jdbc.version>7.0.34</tomcat-jdbc.version>
-
+    <portlet-api.version>2.0</portlet-api.version>
     <project.build.sourceVersion>1.6</project.build.sourceVersion>
     <project.build.targetVersion>1.6</project.build.targetVersion>
   </properties>
@@ -39,6 +39,7 @@
     <module>portal-rest-api</module>
     <module>portlet-form-resources</module>
     <module>portlet-jdbc-util</module>
+    <module>portlet-mvc-util</module>
   </modules>
 
   <dependencyManagement>
@@ -73,6 +74,27 @@
         <artifactId>spring-beans</artifactId>
         <version>${spring.version}</version>
       </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc-portlet</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${spring.version}</version>
+      </dependency> 
+      <dependency>
+          <groupId>javax.portlet</groupId>
+          <artifactId>portlet-api</artifactId>
+          <version>${portlet-api.version}</version>
+          <scope>provided</scope>
+       </dependency> 
     </dependencies>
   </dependencyManagement>
 
