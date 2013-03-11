@@ -8,29 +8,32 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>portlet-mvc-util</artifactId>
+  <artifactId>portlet-security-util</artifactId>
 
-  <name>Portlet MVC Utilities</name>
-  <description>Portlet MVC Utilities.</description>
+  <name>Portlet Security Utilities</name>
+  <description>Portlet Security Utilities.</description>
     
   <dependencies>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jasig.springframework</groupId>
+      <artifactId>spring-security-portlet-contrib</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
+      <artifactId>spring-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc-portlet</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
     
     <dependency>
-      <groupId>javax.portlet</groupId>
-      <artifactId>portlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <groupId>javax.portlet</groupId>
+        <artifactId>portlet-api</artifactId>
+    </dependency> 
   </dependencies>
 </project>
