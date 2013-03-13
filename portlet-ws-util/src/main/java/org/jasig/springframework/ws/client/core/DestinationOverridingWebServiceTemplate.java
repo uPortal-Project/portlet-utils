@@ -34,6 +34,9 @@ import org.springframework.ws.client.support.destination.DestinationProvider;
 public class DestinationOverridingWebServiceTemplate extends WebServiceTemplate {
     private Integer portOverride = null;
     
+    /**
+     * @param portOverride Port to use in the destination URI, overrides the port from the {@link DestinationProvider}
+     */
     public void setPortOverride(String portOverride) {
         try {
             this.portOverride = Integer.parseInt(portOverride);

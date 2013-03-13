@@ -33,6 +33,7 @@
     <httpcore.version>4.2.3</httpcore.version>
     <joda-time.version>2.2</joda-time.version>
     <junit.version>4.11</junit.version>
+    <mockito.version>1.9.5</mockito.version>
     <portlet-api.version>2.0</portlet-api.version>
     <portlet-api.version>2.0</portlet-api.version>
     <resource-server.version>1.0.29</resource-server.version>
@@ -57,6 +58,7 @@
     <module>portlet-mvc-util</module>
     <module>portlet-security-util</module>
     <module>portlet-ws-util</module>
+    <module>portlet-test-util</module>
   </modules>
 
   <dependencyManagement>
@@ -138,6 +140,11 @@
             <groupId>commons-logging</groupId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
