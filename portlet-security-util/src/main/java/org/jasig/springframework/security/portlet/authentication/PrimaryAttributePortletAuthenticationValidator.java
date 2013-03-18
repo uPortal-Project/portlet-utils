@@ -4,7 +4,6 @@ import javax.portlet.PortletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.jasig.springframework.security.portlet.util.AuthenticationValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
 public class PrimaryAttributePortletAuthenticationValidator implements AuthenticationValidator {
