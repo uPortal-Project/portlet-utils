@@ -59,7 +59,7 @@ public class PrimaryAttributePortletPreAuthenticatedAuthenticationDetailsSource 
      * @return The primary attribute, will never return null or empty string
      * @throws ModelAndViewDefiningException If no emplid is found
      */
-    protected final String getPrimaryUserAttribute(PortletRequest request) {
+    public final String getPrimaryUserAttribute(PortletRequest request) {
         final PortletPreferences preferences = request.getPreferences();
         @SuppressWarnings("unchecked")
         final Map<String, String> userAttributes = (Map<String, String>)request.getAttribute(PortletRequest.USER_INFO);
