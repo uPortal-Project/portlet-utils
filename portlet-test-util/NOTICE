@@ -16,11 +16,12 @@ specific language governing permissions and limitations
 under the License.
 
 This project includes:
+  Hamcrest Core under BSD style
   JCL 1.1.1 implemented over SLF4J under MIT License
-  Portlet JDBC Utilities under Apache License Version 2.0
+  Mockito under The MIT License
+  Objenesis under MIT License
+  Portlet Testing Utilities under Apache License Version 2.0
   SLF4J API Module under MIT License
   Spring Beans under The Apache Software License, Version 2.0
   Spring Core under The Apache Software License, Version 2.0
-  tomcat-jdbc under Apache License, Version 2.0
-  tomcat-juli under Apache License, Version 2.0
 
