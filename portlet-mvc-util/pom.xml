@@ -12,7 +12,7 @@
 
   <name>Portlet MVC Utilities</name>
   <description>Portlet MVC Utilities.</description>
-    
+  
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
