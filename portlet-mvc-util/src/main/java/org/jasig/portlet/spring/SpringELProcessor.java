@@ -102,7 +102,10 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
 
     /**
      * Setup the context for spring EL.   Will add all raw properties from
-     * the config file, the request parameters and user info.
+     * an optional config file, the request parameters as ${requestParams.xxx},
+     * the PortletRequest as ${request.xxx} and user info.
+     * 
+     * ${server}, ${port}, and ${protocol} are also available.
      *
      * @param request the portlet request to read params from
      * @return a map of properties
