@@ -129,6 +129,7 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
         context.put( "server", request.getServerName());
         context.put( "port", request.getServerPort());
         context.put( "protocol", request.getScheme());
+        context.put( "contextPath", request.getContextPath());
         
         context.put("request", request);
         context.put("requestParams", requestMap);
