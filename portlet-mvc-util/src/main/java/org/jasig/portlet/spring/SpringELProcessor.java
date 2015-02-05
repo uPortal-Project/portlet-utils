@@ -33,8 +33,10 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.BeanResolver;
+import org.springframework.expression.EvaluationException;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.ReflectivePropertyAccessor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -53,7 +55,7 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     private BeanResolver beanResolver;
-    private Properties properties;
+    private Properties properties = new Properties();
 
 
     /**
@@ -89,23 +91,39 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
         sec.addPropertyAccessor(new DefaultPropertyAccessor(
                 PARSER_CONTEXT.getExpressionPrefix(),
                 PARSER_CONTEXT.getExpressionSuffix()));
-        sec.setBeanResolver(beanResolver);
+        if (beanResolver != null) {
+            sec.setBeanResolver(beanResolver);
+        }
         SpelExpressionParser parser = new SpelExpressionParser();
 
-        String processed = parser
-                .parseExpression(value, PARSER_CONTEXT)
-                .getValue(sec, String.class);
-
-        return processed;
+        try {
+            String processed = parser
+                    .parseExpression(value, PARSER_CONTEXT)
+                    .getValue(sec, String.class);
+            return processed;
+        } catch (SpelEvaluationException e) {
+            throw new EvaluationException("Failed to process string '" + value
+                    + "'. See nested error message and check your SpEL tokens in your string", e);
+        }
     }
 
 
     /**
-     * Setup the context for spring EL.   Will add all raw properties from
-     * an optional config file, the request parameters as ${requestParams.xxx},
-     * the PortletRequest as ${request.xxx} and user info.
-     * 
-     * ${server}, ${port}, and ${protocol} are also available.
+     * Setup the context for spring EL.   Will add all properties from an optional properties file as
+     * ${property['propKey']}, the request parameters as ${requestParam.xxx}, the
+     * PortletRequest as ${request.xxx} and user info as ${user}.  Examples
+     *
+     * ${protocol}://${server}:${port}/${contextPath}/view?param=${requestParam.param}
+     * ${protocol}://${server}:${port}/${contextPath}/view/${requestParam['form.itemId']}
+     * ${protocol}://${server}:${port}/${contextPath}/view?userId=${user['user.login.id']}
+     * ${protocol}://${server}:${port}/${contextPath}/view?action=${property['proxy.action.key']}
+     *
+     * ${server}, ${port}, ${protocol}, and ${contextPath} are also available which are the
+     * values for accessing the particular portlet (contextPath in particular is the portlet webapp's
+     * context path name).
+     *
+     * The Spring EL context will include all properties from app-launcher.properties, all request
+     * parameters namespaced as "request" and all properties from the user-info map namespaced as "user". Examples:
      *
      * @param request the portlet request to read params from
      * @return a map of properties
@@ -113,12 +131,8 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
     private Map<String, Object> getContext(PortletRequest request) {
         Map<String, Object> context = new HashMap<String, Object>();
 
-        if(properties != null) {
-            for (String key : properties.stringPropertyNames()) {
-                context.put(key, properties.getProperty(key));
-            }
-        }
-        
+        context.put("property", properties);
+
         Map<String, String> requestMap = new HashMap<String, String>();
         Enumeration<String> names = request.getParameterNames();
         while (names.hasMoreElements()) {
@@ -132,7 +146,7 @@ public class SpringELProcessor implements IExpressionProcessor, BeanFactoryAware
         context.put( "contextPath", request.getContextPath());
         
         context.put("request", request);
-        context.put("requestParams", requestMap);
+        context.put("requestParam", requestMap);
 
         Map<String, String> userInfo = (Map<String, String>)request.getAttribute(PortletRequest.USER_INFO);
         context.put("user", userInfo);
