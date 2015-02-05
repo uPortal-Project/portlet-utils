@@ -16,6 +16,7 @@ specific language governing permissions and limitations
 under the License.
 
 This project includes:
+  Commons Logging under The Apache Software License, Version 2.0
   JCL 1.1.1 implemented over SLF4J under MIT License
   Portlet JDBC Utilities under Apache License Version 2.0
   SLF4J API Module under MIT License

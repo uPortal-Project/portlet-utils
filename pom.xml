@@ -306,6 +306,21 @@
                       </dependency>
                   </dependencies>
               </plugin>
+              <plugin>
+                  <groupId>com.mycila.maven-license-plugin</groupId>
+                  <artifactId>maven-license-plugin</artifactId>
+                  <configuration>
+                      <aggregate>true</aggregate>
+                      <excludes>
+                          <exclude>**/NOTICE</exclude>
+                          <exclude>README</exclude>
+                          <exclude>LICENSE</exclude>
+                          <exclude>**/.gitignore</exclude>
+                          <exclude>.idea/**</exclude>  <!-- for intelliJ Idea -->
+                          <exclude>**/overlays/**</exclude>  <!-- for intelliJ Idea -->
+                      </excludes>
+                  </configuration>
+              </plugin>
           </plugins>
       </pluginManagement>
   </build>
