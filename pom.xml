@@ -36,9 +36,7 @@
     <logback.version>1.0.13</logback.version>
     <mockito.version>1.9.5</mockito.version>
     <portlet-api.version>2.0</portlet-api.version>
-    <portlet-api.version>2.0</portlet-api.version>
     <resource-server.version>1.0.42</resource-server.version>
-    <servlet-api.version>2.5</servlet-api.version>
     <servlet-api.version>2.5</servlet-api.version>
     <slf4j.version>1.7.5</slf4j.version>
     <spring-security-portlet-contrib.version>1.0.1</spring-security-portlet-contrib.version>
