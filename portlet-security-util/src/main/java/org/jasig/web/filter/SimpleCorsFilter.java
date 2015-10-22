@@ -1,3 +1,22 @@
+/**
+ * Licensed to Apereo under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work
+ * for additional information regarding copyright ownership.
+ * Apereo licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License.  You may obtain a
+ * copy of the License at the following location:
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 package org.jasig.web.filter;
 
 import java.io.IOException;
@@ -11,13 +30,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.jasig.web.filter.component.ComponentCorsFilter;
 
 /**
  * Default behavior for this filter is to allow origins from * (ie anywhere). It is not reccomended to use this default 
  * behavior except for development testing. When configuring the filter, the filter configuration parameters will 
  * overwrite any value set in a spring or other configuration file doing dependency injection and initialization.  
  * 
- * Config within web.xml:
+ * Multiple ways to configure this: 
+ * ** Config within web.xml:
  * 
  * <filter>
  *   <filter-name>Simple CORS Filter</filter-name>
@@ -40,7 +61,33 @@ import org.apache.commons.lang.StringUtils;
  *   </init-param>    
  * </filter>
  * 
+ * ** Config with Spring Context
+ * 1) Configure web.xml using DelegatingFilterProxy
+ * 
+ * <filter>
+ *   <filter-name>corsFilter</filter-name>
+ *   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+ *   <init-param>
+ *     <param-name>targetBeanName</param-name>
+ *     <param-value>corsFilter</param-value>
+ *   </init-param>
+ * </filter>
+ * ...
+ * <filter-mapping>
+ *   <filter-name>corsFilter</filter-name>
+ *   <url-pattern>*.html</url-pattern> <!-- set appropriately -->
+ * </filter-mapping>
+ * 
+ * 2) Create your filter in your spring content config XML file (eg applicationContext.xml)
+ * 
+ * <bean name="corsFilter" class="org.jasig.web.filter.SimpleCorsFilter">
+ *   <property name="allowMethod">POST,GET,PUT</property>
+ *   <property name="maxAge">360</property>
+ * </bean>
+ * 
  * @author chasegawa@unicon.net
+ * @see ComponentCorsFilter
+ * @see javax.servlet.Filter
  */
 public class SimpleCorsFilter implements Filter {
     private String allowHeaders = "Origin, X-Requested-With, Content-Type, Accept";
