@@ -44,7 +44,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SimpleCorsFilter implements Filter {
     private String allowHeaders = "Origin, X-Requested-With, Content-Type, Accept";
-    private String allowMethod = "POST, GET, PUT, OPTIONS, DELETE";
+    private String allowMethod = "POST, GET, PUT, OPTIONS, DELETE, HEAD";
     private String allowOrigin = "*";
     private String maxAge = "3600";
 
@@ -105,7 +105,7 @@ public class SimpleCorsFilter implements Filter {
     }
 
     /**
-     * Defaults to "POST, GET, PUT, OPTIONS, DELETE"
+     * Defaults to "POST, GET, PUT, OPTIONS, DELETE, HEAD"
      * This value can be overwritten by any value configured in filter config parameters of web.xml
      * @param allowMethod
      */
