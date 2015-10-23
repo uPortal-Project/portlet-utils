@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.jasig.web.filter.component;
+package org.jasig.springframework.security.filter;
 
 import java.io.IOException;
 

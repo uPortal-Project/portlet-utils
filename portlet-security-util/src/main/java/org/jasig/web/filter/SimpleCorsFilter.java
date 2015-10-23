@@ -30,7 +30,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.jasig.web.filter.component.ComponentCorsFilter;
+import org.jasig.springframework.security.filter.ComponentCorsFilter;
 
 /**
  * Default behavior for this filter is to allow origins from * (ie anywhere). It is not reccomended to use this default 
