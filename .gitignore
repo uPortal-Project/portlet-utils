@@ -2,3 +2,5 @@
 /.project
 /.settings/
 /target
+/bin
+*.DS_Store
