@@ -1,18 +1,18 @@
 /**
- * Licensed to Apereo under one or more contributor license
+ * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Apereo licenses this file to you under the Apache License,
+ * Jasig licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License.  You may obtain a
- * copy of the License at the following location:
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -36,7 +36,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * Provides standard access to the portal's {@link org.springframework.context.ApplicationContext}. If running in a web application a
  * {@link org.springframework.web.context.WebApplicationContext} is available.
  *
- * {@link #getApplicationContext()} should be used by most uPortal code that needs access to the portal's
+ * {@link #getApplicationContext(String)} should be used by most uPortal code that needs access to the portal's
  * {@link org.springframework.context.ApplicationContext}. It ensures that a single {@link org.springframework.context.ApplicationContext} is used portal-wide both
  * when the portal is running as a web-application and when tools are run from the command line.
  *
@@ -109,11 +109,13 @@ public class PortletApplicationContextLocator implements ServletContextListener 
     }
 
     /**
-     * If running in a web application the existing {@link org.springframework.web.context.WebApplicationContext} will be returned. if
-     * not a singleton {@link org.springframework.context.ApplicationContext} is created if needed and returned. Unless a {@link org.springframework.web.context.WebApplicationContext}
+     * If running in a web application the existing {@link org.springframework.web.context.WebApplicationContext}
+     * will be returned. If not a singleton {@link org.springframework.context.ApplicationContext} is created if
+     * needed and returned. Unless a {@link org.springframework.web.context.WebApplicationContext}
      * is specifically needed this method should be used as it will work both when running in and out
      * of a web application
      *
+     * @param importExportContextFile Location of context file to use if not running in a web application
      * @return The {@link org.springframework.context.ApplicationContext} for the portal.
      */
     public static ApplicationContext getApplicationContext(String importExportContextFile) {
@@ -141,10 +143,10 @@ public class PortletApplicationContextLocator implements ServletContextListener 
     }
     
     /**
-     * If the ApplicationContext returned by {@link #getApplicationContext()} is 'portal managed' the shutdown hook
+     * If the ApplicationContext returned by {@link #getApplicationContext(String)} is 'portal managed' the shutdown hook
      * for the context is called, closing and cleaning up all spring managed resources.
      *
-     * If the ApplicationContext returned by {@link #getApplicationContext()} is actually a WebApplicationContext
+     * If the ApplicationContext returned by {@link #getApplicationContext(String)} is actually a WebApplicationContext
      * this method does nothing but log an error message.
      */
     public static void shutdown() {

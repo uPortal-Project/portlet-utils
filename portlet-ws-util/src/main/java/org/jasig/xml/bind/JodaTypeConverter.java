@@ -1,18 +1,18 @@
 /**
- * Licensed to Apereo under one or more contributor license
+ * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Apereo licenses this file to you under the Apache License,
+ * Jasig licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License.  You may obtain a
- * copy of the License at the following location:
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -29,17 +29,17 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 
 /**
- * Utility for use with JAXB to use Joda Time for dates/times/dateTimes.<br/>
+ * Utility for use with JAXB to use Joda Time for dates/times/dateTimes.<br>
  * Example Usage:
- * <pre>
-&lt;jaxb:bindings&gt;
-    &lt;jaxb:globalBindings fixedAttributeAsConstantProperty=&quot;true&quot; enableFailFastCheck=&quot;true&quot;&gt;
-        &lt;jaxb:javaType name=&quot;org.joda.time.DateTime&quot; xmlType=&quot;xs:dateTime&quot; parseMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.parseDateTime&quot; printMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.printDateTime&quot; /&gt;
-        &lt;jaxb:javaType name=&quot;org.joda.time.DateMidnight&quot; xmlType=&quot;xs:date&quot; parseMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.parseDate&quot; printMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.printDate&quot; /&gt;
-        &lt;jaxb:javaType name=&quot;org.joda.time.LocalTime&quot; xmlType=&quot;xs:time&quot; parseMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.parseTime&quot; printMethod=&quot;org.jasig.portlet.jaxb.util.JodaTypeConverter.printTime&quot; /&gt;
-    &lt;/jaxb:globalBindings&gt;
-&lt;/jaxb:bindings&gt;
- * </pre>
+ * <pre>{@code
+ * <jaxb:bindings>
+ *     <jaxb:globalBindings fixedAttributeAsConstantProperty="true" enableFailFastCheck="true">
+ *         <jaxb:javaType name="org.joda.time.DateTime" xmlType="xs:dateTime" parseMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.parseDateTime" printMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.printDateTime" />
+ *         <jaxb:javaType name="org.joda.time.DateMidnight" xmlType="xs:date" parseMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.parseDate" printMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.printDate" />
+ *         <jaxb:javaType name="org.joda.time.LocalTime" xmlType="xs:time" parseMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.parseTime" printMethod="org.jasig.portlet.jaxb.util.JodaTypeConverter.printTime" />
+ *     </jaxb:globalBindings>
+ * </jaxb:bindings>
+ * }</pre>
  * 
  * @author Eric Dalquist
  */

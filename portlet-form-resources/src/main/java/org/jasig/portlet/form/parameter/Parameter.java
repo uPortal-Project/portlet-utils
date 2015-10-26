@@ -1,18 +1,18 @@
 /**
- * Licensed to Apereo under one or more contributor license
+ * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Apereo licenses this file to you under the Apache License,
+ * Jasig licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License.  You may obtain a
- * copy of the License at the following location:
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -36,7 +36,7 @@ public class Parameter {
      * Get the name of this form parameter.  This is the value that will
      * be used to submit the value inside the form. 
      * 
-     * @return
+     * @return name of this form parameter
      */
     public String getName() {
         return name;
@@ -46,7 +46,7 @@ public class Parameter {
      * Set the name of this form paramter.  This is the value that will be 
      * used to submit the value inside the form.
      * 
-     * @param name
+     * @param name name of this form parameter
      */
     public void setName(String name) {
         this.name = name;
@@ -55,7 +55,7 @@ public class Parameter {
     /**
      * Determine if this parameter is read-only.
      * 
-     * @return
+     * @return True if this parameter is read-only
      */
     public boolean getReadOnly() {
         return readOnly;
@@ -63,7 +63,7 @@ public class Parameter {
 
     /**
      * Set whether this parameter should be considered read-only.
-     * @param readOnly
+     * @param readOnly True to indicate this parameter is read-only
      */
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
@@ -72,7 +72,7 @@ public class Parameter {
     /**
      * Get the key of the message to be used as the parameter label. 
      * 
-     * @return
+     * @return key of the message to be used as the parameter label
      */
     public String getLabelKey() {
         return labelKey;
@@ -81,7 +81,7 @@ public class Parameter {
     /**
      * Set the key of the message to be used as the parameter label.
      * 
-     * @param labelKey
+     * @param labelKey key of the message to be used as the parameter label
      */
     public void setLabelKey(String labelKey) {
         this.labelKey = labelKey;
@@ -91,7 +91,7 @@ public class Parameter {
      * Get the key of the message to be used as the parameter description 
      * (optional).
      * 
-     * @return
+     * @return key of the message to be used as the parameter description
      */
     public String getDescriptionKey() {
         return descriptionKey;
@@ -101,7 +101,7 @@ public class Parameter {
      * Set the key of the message to be used as the parameter description 
      * (optional).
      * 
-     * @param descriptionKey
+     * @param descriptionKey key of the message to be used as the parameter description
      */
     public void setDescriptionKey(String descriptionKey) {
         this.descriptionKey = descriptionKey;
@@ -110,7 +110,7 @@ public class Parameter {
     /**
      * Get an example valid value for this parameter (optional).
      * 
-     * @return
+     * @return example valid value for this parameter
      */
     public String getExample() {
         return example;
@@ -119,27 +119,25 @@ public class Parameter {
     /**
      * Set an example valid value for this parameter (optional).
      * 
-     * @param example
+     * @param example example valid value for this parameter
      */
     public void setExample(String example) {
         this.example = example;
     }
 
     /**
-     * Get the input type object to be used to construct form field(s) for this
-     * parameter.
+     * Get the input type object to be used to construct form field(s) for this parameter.
      * 
-     * @return
+     * @return input type object to be used to construct form field(s) for this parameter
      */
     public ParameterInput getInput() {
         return input;
     }
 
     /**
-     * Set the input type object to be used to construct form field(s) for this
-     * parameter.
+     * Set the input type object to be used to construct form field(s) for this parameter.
      * 
-     * @param input
+     * @param input input type object to be used to construct form field(s) for this parameter
      */
     public void setInput(ParameterInput input) {
         this.input = input;

@@ -1,18 +1,18 @@
 /**
- * Licensed to Apereo under one or more contributor license
+ * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Apereo licenses this file to you under the Apache License,
+ * Jasig licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License.  You may obtain a
- * copy of the License at the following location:
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -68,6 +68,8 @@ public class CleanShutdownPoolingClientConnectionManager extends PoolingClientCo
      * Hard limit time for shutting down the connection manager.
      * Once hit the shutdown thread is killed via {@link Thread#stop()}.
      * Defaults to 45s (45000ms)
+     *
+     * @param shutdownThreadKillTime Hard limit for shutting down the connection manager
      */
     public void setShutdownThreadKillTime(int shutdownThreadKillTime) {
         this.shutdownThreadKillTime = shutdownThreadKillTime;
@@ -75,6 +77,8 @@ public class CleanShutdownPoolingClientConnectionManager extends PoolingClientCo
     /**
      * Limit after which the shutdown thread is repeatedly interrupted.
      * Defaults to 30s (30000ms)
+     *
+     * @param shutdownThreadMaxTime Limit after which the shutdown thread is interrupted
      */
     public void setShutdownThreadMaxTime(int shutdownThreadMaxTime) {
         this.shutdownThreadMaxTime = shutdownThreadMaxTime;
@@ -83,6 +87,9 @@ public class CleanShutdownPoolingClientConnectionManager extends PoolingClientCo
      * Limit of time the shutdown thread is allowed to stay in {@link State#BLOCKED}, {@link State#WAITING}, or
      * {@link State#TIMED_WAITING}. Once hit the thread is interrupted and the timer is reset.
      * Defaults to 1s (1000ms)
+     *
+     * @param shutdownThreadMaxWaitTime Limit of time the shutdown thread is allowed to stay in {@link State#BLOCKED}, {@link State#WAITING}, or
+     * {@link State#TIMED_WAITING}
      */
     public void setShutdownThreadMaxWaitTime(int shutdownThreadMaxWaitTime) {
         this.shutdownThreadMaxWaitTime = shutdownThreadMaxWaitTime;
@@ -90,12 +97,12 @@ public class CleanShutdownPoolingClientConnectionManager extends PoolingClientCo
     /**
      * Rate at which the state of the shutdown thread is polled and/or interrupted.
      * Defaults to 5ms
+     *
+     * @param shutdownThreadPollRate Rate at which the state of the shutdown thread is polled and/or interrupted
      */
     public void setShutdownThreadPollRate(int shutdownThreadPollRate) {
         this.shutdownThreadPollRate = shutdownThreadPollRate;
     }
-
-
 
     @Override
     public void shutdown() {

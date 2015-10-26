@@ -1,18 +1,18 @@
 /**
- * Licensed to Apereo under one or more contributor license
+ * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Apereo licenses this file to you under the Apache License,
+ * Jasig licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License.  You may obtain a
- * copy of the License at the following location:
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -26,11 +26,8 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.jasig.springframework.security.portlet.authentication.PortletPreAuthenticatedAuthenticationDetailsSource;
-import org.jasig.springframework.security.portlet.authentication.PreAuthenticatedGrantedAuthoritiesPortletAuthenticationDetails;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.portlet.ModelAndViewDefiningException;
 
 /**
  * Extention of portlet pre-auth source that captures an attribute out of the portlet USER_INFO map
@@ -51,7 +48,9 @@ public class PrimaryAttributePortletPreAuthenticatedAuthenticationDetailsSource 
     private String primaryUserAttributesPreference = "primaryAttribute";
 
     /**
-     * Portlet preference to get the USER_INFO attribute names from. Defaults to "primaryAttribute"
+     * Portlet preference to get the USER_INFO attribute names from. Defaults to "primaryAttribute".
+     *
+     * @param primaryUserAttributesPreference Portlet preference to get the USER_INFO attribute names from
      */
     public void setPrimaryUserAttributesPreference(String primaryUserAttributesPreference) {
         this.primaryUserAttributesPreference = primaryUserAttributesPreference;
@@ -73,9 +72,8 @@ public class PrimaryAttributePortletPreAuthenticatedAuthenticationDetailsSource 
     /**
      * Get the user's primary attribute.
      *
-     * @param primaryUserAttributesPreference The portlet preference that contains a list of user attributes to inspect in order. The first attribute with a value is returned.
-     * @return The primary attribute, will never return null or empty string
-     * @throws ModelAndViewDefiningException If no emplid is found
+     * @param request Portlet Request
+     * @return The primary attribute, Will never return null or empty string
      */
     public final String getPrimaryUserAttribute(PortletRequest request) {
         final PortletPreferences preferences = request.getPreferences();
