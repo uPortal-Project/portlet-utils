@@ -18,8 +18,8 @@ under the License.
 This project includes:
   AntLR under BSD License
   AOP alliance under Public Domain
+  Apache Commons Collections under Apache License, Version 2.0
   Commons Codec under The Apache Software License, Version 2.0
-  Commons Collections under The Apache Software License, Version 2.0
   Commons FileUpload under The Apache Software License, Version 2.0
   Commons IO under The Apache Software License, Version 2.0
   Commons Lang under The Apache Software License, Version 2.0
