@@ -3,4 +3,5 @@
 /.settings/
 /target
 /bin
+/.idea/
 *.DS_Store
