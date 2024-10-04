@@ -6,3 +6,5 @@
 Portlet Utility Libraries
 
 This package is a set of utility libraries to share across Portlet projects.  
+
+As of 10/04/2024, Java 11+ is now required.
