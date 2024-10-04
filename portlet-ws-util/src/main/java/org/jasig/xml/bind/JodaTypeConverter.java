@@ -21,7 +21,7 @@ package org.jasig.xml.bind;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
