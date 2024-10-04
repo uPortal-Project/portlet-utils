@@ -57,5 +57,5 @@ jobs:
         with:
           distribution: ${{ matrix.java-distribution }}
           java-version: ${{ matrix.java-version }}
-      - name: Test and Package
-        run: mvn -B package
+      - name: Test
+        run: mvn -B test
