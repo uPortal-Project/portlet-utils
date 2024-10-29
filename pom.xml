@@ -25,7 +25,7 @@
   </scm>
 
   <properties>
-    <bind-api.version>4.0.2</bind-api.version>
+    <jaxb.version>2.3.3</jaxb.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
@@ -179,12 +179,17 @@
           <artifactId>portlet-api</artifactId>
           <version>${portlet-api.version}</version>
           <scope>provided</scope>
-       </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${bind-api.version}</version>
-        </dependency>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jaxb.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${jaxb.version}</version>
+      </dependency>
 
         <!-- For sl4j/logback logging, see https://wiki.jasig.org/display/PLT/Logging+Best+Practices -->
         <dependency>
