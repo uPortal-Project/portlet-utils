@@ -25,24 +25,38 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   test:
-    name: "${{ matrix.platform }} with Java 8"
+    name: '${{ matrix.platform }} with Java ${{ matrix.java-distribution }} version ${{ matrix.java-version }}'
     strategy:
       matrix:
         platform:
           - ubuntu-latest
-          - windows-latest
-          - macos-latest
+        java-distribution:
+          - adopt-hotspot
+          - temurin
+          - zulu
+        java-version:
+          - 8
+          - 11
+        include:
+          - platform: windows-latest
+            java-distribution: adopt-hotspot
+            java-version: 11
+          - platform: macos-latest
+            java-distribution: adopt-hotspot
+            java-version: 11
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 5      
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: adopt-hotspot
-          java-version: 8
+          distribution: ${{ matrix.java-distribution }}
+          java-version: ${{ matrix.java-version }}
       - name: Test and Package
         run: mvn -B package
