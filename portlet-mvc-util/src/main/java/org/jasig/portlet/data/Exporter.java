@@ -28,9 +28,9 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 import org.jasig.portlet.spring.PortletApplicationContextLocator;
 import org.springframework.context.ApplicationContext;
 
