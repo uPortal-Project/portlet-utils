@@ -45,7 +45,7 @@
     <spring-ws.version>2.4.0.RELEASE</spring-ws.version>
     <spring.version>3.2.15.RELEASE</spring.version>
     <spock.version>0.7-groovy-2.0</spock.version>
-    <tomcat-jdbc.version>7.0.37</tomcat-jdbc.version>
+    <tomcat-jdbc.version>7.0.109</tomcat-jdbc.version>
 
     <project.build.sourceVersion>1.6</project.build.sourceVersion>
     <project.build.targetVersion>1.6</project.build.targetVersion>
