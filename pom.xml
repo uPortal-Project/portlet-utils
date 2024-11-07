@@ -31,7 +31,7 @@
     <commons-lang.version>2.6</commons-lang.version>
     <guava.version>14.0.1</guava.version>
     <!-- Hibernate should match uPortal version for consistency -->
-    <hibernate.version>3.6.10.Final</hibernate.version>  
+    <hibernate.version>5.3.20.Final</hibernate.version>  
     <httpclient.version>4.5.13</httpclient.version>
     <httpcore.version>4.4.15</httpcore.version>
     <joda-time.version>2.11.2</joda-time.version>
