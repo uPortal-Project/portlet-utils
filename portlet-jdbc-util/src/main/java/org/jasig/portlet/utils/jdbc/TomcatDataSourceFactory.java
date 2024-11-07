@@ -482,6 +482,17 @@ public class TomcatDataSourceFactory extends AbstractFactoryBean<DataSource>
     }
 
     @Override
+    public int getValidationQueryTimeout() {
+        // TODO: Implement this when needed.
+        return 0;
+    }
+
+    @Override
+    public void setValidationQueryTimeout(int i) {
+        // TODO: Implement this when needed.
+    }
+
+    @Override
     public String getValidatorClassName() {
         return this.poolConfiguration.getValidatorClassName();
     }
@@ -683,6 +694,28 @@ public class TomcatDataSourceFactory extends AbstractFactoryBean<DataSource>
     public void setPropagateInterruptState(boolean propagateInterruptState) {
         this.poolConfiguration
                 .setPropagateInterruptState(propagateInterruptState);
+    }
+
+    @Override
+    public void setIgnoreExceptionOnPreLoad(boolean b) {
+        // TODO: Implement this when needed.
+    }
+
+    @Override
+    public boolean isIgnoreExceptionOnPreLoad() {
+        // TODO: Implement this when needed.
+        return false;
+    }
+
+    @Override
+    public void setUseStatementFacade(boolean b) {
+        // TODO: Implement this when needed.
+    }
+
+    @Override
+    public boolean getUseStatementFacade() {
+        // TODO: Implement this when needed.
+        return false;
     }
 
 }
