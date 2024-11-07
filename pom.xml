@@ -30,6 +30,8 @@
     <commons-io.version>2.11.0</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
     <guava.version>14.0.1</guava.version>
+    <!-- Hibernate should match uPortal version for consistency -->
+    <hibernate.version>3.6.10.Final</hibernate.version>  
     <httpclient.version>4.5.13</httpclient.version>
     <httpcore.version>4.4.15</httpcore.version>
     <joda-time.version>2.11.2</joda-time.version>
@@ -47,13 +49,14 @@
     <spock.version>0.7-groovy-2.0</spock.version>
     <tomcat-jdbc.version>7.0.109</tomcat-jdbc.version>
 
-    <project.build.sourceVersion>1.6</project.build.sourceVersion>
-    <project.build.targetVersion>1.6</project.build.targetVersion>
+    <project.build.sourceVersion>1.8</project.build.sourceVersion>
+    <project.build.targetVersion>1.8</project.build.targetVersion>
   </properties>
 
   <modules>
     <module>portal-rest-api</module>
     <module>portlet-form-resources</module>
+    <module>portlet-hibernate-util</module>
     <module>portlet-jdbc-util</module>
     <module>portlet-mvc-util</module>
     <module>portlet-security-util</module>
@@ -86,7 +89,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
+            <version>${hibernate.version}</version>
         </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
