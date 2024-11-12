@@ -25,7 +25,7 @@
   </scm>
 
   <properties>
-    <jaxb.version>2.3.3</jaxb.version>
+    <jaxb.version>2.3.9</jaxb.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
